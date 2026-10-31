@@ -7,22 +7,15 @@ import WaIcon from './WaIcon.astro';
 ---
 <section class="section pedir" id="pedir" aria-labelledby="pedir-title">
   <div class="container">
-    <div class="section-head center">
-      <p class="eyebrow">Cómo pedir</p>
-      <h2 id="pedir-title" class="h2">Tu postre, <em>como prefieras</em></h2>
+    <div class="section-head">
+      <h2 id="pedir-title" class="h2">¿Cómo te lo hacemos llegar?</h2>
     </div>
-
-    <ol class="pasos">
-      <li><span>1</span><p><strong>Elige</strong> tus postres en la carta y agrégalos a tu pedido.</p></li>
-      <li><span>2</span><p><strong>Envíalo</strong> por WhatsApp con un clic, ya armado.</p></li>
-      <li><span>3</span><p><strong>Te confirmamos</strong> disponibilidad, precio y la forma de entrega.</p></li>
-    </ol>
 
     <div class="opciones">
       <article class="opcion">
         <div class="op-img"><Image src={letrero} alt="Letrero de La Pannacotta dentro del local" widths={[360, 600]} sizes="(max-width: 800px) 90vw, 360px" /></div>
         <div class="op-body">
-          <p class="eyebrow">Recojo en tienda</p>
+          <p class="script-label">Recojo en tienda</p>
           <h3 class="h3">Pasa por tu pedido</h3>
           <p>Te esperamos en {NEGOCIO.direccion}. Si quieres, quédate un rato con un buen café.</p>
           <a class="link-arrow" href="#visitanos">Ver horario y ubicación →</a>
@@ -32,7 +25,7 @@ import WaIcon from './WaIcon.astro';
       <article class="opcion destacada">
         <div class="op-img"><Image src={delivery} alt="Don David entregando un pedido de La Pannacotta" widths={[360, 600]} sizes="(max-width: 800px) 90vw, 360px" /></div>
         <div class="op-body">
-          <p class="eyebrow">Delivery en Comas</p>
+          <p class="script-label">Delivery en Comas</p>
           <h3 class="h3">Te lo lleva Don David</h3>
           <p>
             Nuestro delivery propio, con Don David y su mototaxi: puntual, cuidadoso y siempre con una sonrisa.
@@ -44,7 +37,7 @@ import WaIcon from './WaIcon.astro';
 
       <article class="opcion">
         <div class="op-body solo">
-          <p class="eyebrow">Apps de delivery</p>
+          <p class="script-label">Por app</p>
           <h3 class="h3">También en Rappi</h3>
           <p>¿Prefieres pedir desde la app? Encuéntranos en Rappi como La Pannacotta.</p>
           <a class="btn btn-outline btn-sm" href={NEGOCIO.rappi} target="_blank" rel="noopener">Pedir en Rappi</a>

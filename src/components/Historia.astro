@@ -1,27 +1,28 @@
 ---
 import { Image } from 'astro:assets';
-import zanahoria from '../assets/img/cut/keke-zanahoria.png';
-import tartaChoco from '../assets/img/cut/tarta-chocolate.png';
-import fresas from '../assets/img/cut/postre-fresas.png';
-import maracuya from '../assets/img/cut/cheesecake-maracuya.png';
-import limon from '../assets/img/cut/pie-limon.png';
-
-const platos = [zanahoria, tartaChoco, fresas, maracuya, limon];
+import miniTortas from '../assets/img/mini-tortas.jpg';
+import equipo from '../assets/img/equipo-banoffee.jpg';
 ---
 <section class="section historia" id="historia" aria-labelledby="historia-title">
-  <div class="container narrow center">
-    <p class="eyebrow">Nuestra historia</p>
-    <h2 id="historia-title" class="statement">
-      Más que una pastelería artesanal, somos un espacio amplio, cálido y tranquilo donde tus días ocupados se vuelven <em>un poquito más dulces.</em>
-    </h2>
-    <p class="lead">
-      Ya sea para trabajar, compartir una buena charla o regalarte ese antojo artesanal que tanto mereces,
-      te esperamos en Comas con la vitrina llena. Nuestra casa es tu casa.
-    </p>
-  </div>
-  <div class="platos" aria-hidden="true">
-    {platos.map((p) => (
-      <div class="plato"><Image src={p} alt="" widths={[260, 420]} sizes="(max-width: 700px) 46vw, 22vw" /></div>
-    ))}
+  <div class="container historia-grid">
+    <div class="hist-text">
+      <h2 id="historia-title" class="statement">
+        Más que una pastelería artesanal, somos un espacio amplio, cálido y tranquilo donde tus días ocupados se vuelven
+        <span class="script-accent">un poquito más dulces.</span>
+      </h2>
+      <p class="lead">
+        Ya sea para trabajar, compartir una buena charla o regalarte ese antojo artesanal que tanto mereces,
+        pásate por Comas: la vitrina te espera.
+      </p>
+      <p class="hist-firma">Nuestra casa es tu&nbsp;casa&nbsp;<span aria-hidden="true">♡</span><small>— El team de La Pannacotta</small></p>
+    </div>
+
+    <div class="hist-fotos">
+      <Image src={miniTortas} alt="Mini tortas servidas en una mesa del local" widths={[480, 820]} sizes="(max-width: 860px) 88vw, 460px" class="hist-main" />
+      <figure class="polaroid">
+        <Image src={equipo} alt="Integrante del equipo sosteniendo un Banoffee" widths={[260, 420]} sizes="200px" />
+        <figcaption>Hecho por nuestro team</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
