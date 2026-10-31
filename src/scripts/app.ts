@@ -25,7 +25,9 @@ const KEY = 'lpc-pedido';
 let cart: Record<string, number> = {};
 try { cart = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch { cart = {}; }
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(cart)); } catch { /* sin storage */ } };
-const items = () => Object.entries(cart).filter(([id, q]) => q > 0 && productos.has(id));
+/** Id del producto que acaba de entrar al pedido: solo esa fila se anima al aparecer */
+let recienAgregado: string | null = null;
+const items = () =>Object.entries(cart).filter(([id, q]) => q > 0 && productos.has(id));
 
 const drawer = $('#pedido');
 const scrim = $('.drawer-scrim');
@@ -73,7 +75,7 @@ function renderCart() {
   $('[data-order-form]').hidden = list.length === 0;
   $('[data-cart-list]').innerHTML = list.map(([id, q]) => {
     const p = productos.get(id)!;
-    return `<li class="cart-item">
+    return `<li class="cart-item${id === recienAgregado ? ' is-new' : ''}">
       <img src="${p.thumb}" alt="" width="56" height="56">
       <div class="ci-info"><strong>${p.nombre}</strong><span>${p.precio ? soles(p.precio * q) : 'Precio a confirmar'}</span></div>
       <div class="qty" role="group" aria-label="Cantidad de ${p.nombre}">
@@ -83,6 +85,7 @@ function renderCart() {
       </div>
     </li>`;
   }).join('');
+  recienAgregado = null;
   // El total solo aparece si todos los productos del pedido tienen precio publicado
   const total = $('[data-cart-total]');
   const conPrecio = list.length > 0 && list.every(([id]) => productos.get(id)!.precio);
@@ -106,6 +109,7 @@ document.addEventListener('click', (e) => {
   const dec = t.closest<HTMLElement>('[data-dec]');
   if (add) {
     const id = add.dataset.add!;
+    if (!cart[id]) recienAgregado = id;
     cart[id] = (cart[id] || 0) + 1;
     toast(`${productos.get(id)!.nombre} se agregó a tu pedido`);
     add.classList.add('is-added');
