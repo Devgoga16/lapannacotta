@@ -1,0 +1,38 @@
+---
+import WaIcon from './WaIcon.astro';
+import { waLink, MSG_HOLA } from '../data/negocio';
+
+const links = [
+  { href: '#favoritos', label: 'Favoritos' },
+  { href: '#carta', label: 'Carta' },
+  { href: '#encargos', label: 'Tortas por encargo' },
+  { href: '#pedir', label: 'Cómo pedir' },
+  { href: '#visitanos', label: 'Visítanos' },
+];
+---
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a href="#top" class="brand" aria-label="La Pannacotta, inicio">
+      <img src="/img/monograma.png" alt="" width="22" height="29" />
+      <span>La Pannacotta</span>
+    </a>
+    <nav class="nav" aria-label="Principal">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+    <div class="header-actions">
+      <button type="button" class="cart-btn" data-open-cart aria-label="Ver mi pedido">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Zm3 0a3 3 0 0 1 6 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span class="cart-count" data-cart-count>0</span>
+      </button>
+      <a class="btn btn-gold btn-sm hide-mobile" href={waLink(MSG_HOLA)} target="_blank" rel="noopener">
+        <WaIcon /> Pedir por WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<nav class="mobile-bar" aria-label="Acciones rápidas">
+  <a href="#carta" class="mb-link">Ver carta</a>
+  <button type="button" class="mb-link" data-open-cart>Mi pedido <span class="cart-count" data-cart-count>0</span></button>
+  <a href={waLink(MSG_HOLA)} target="_blank" rel="noopener" class="mb-wa"><WaIcon /> WhatsApp</a>
+</nav>

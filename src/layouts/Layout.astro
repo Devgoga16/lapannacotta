@@ -1,0 +1,64 @@
+---
+import '../styles/global.css';
+import { NEGOCIO } from '../data/negocio';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'La Pannacotta · Pastelería boutique en Comas, Lima Norte',
+  description = 'Cheesecakes, tortas y postres artesanales en Comas. Pide por WhatsApp, recoge en tienda o recíbelo en casa. Tortas y postres enteros por encargo.',
+} = Astro.props;
+
+const ogImage = new URL('/og-lapannacotta.jpg', Astro.site ?? Astro.url).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Bakery',
+  name: NEGOCIO.nombre,
+  description,
+  telephone: `+${NEGOCIO.whatsapp}`,
+  email: NEGOCIO.correo,
+  servesCuisine: 'Pastelería',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Av. Micaela Bastidas 728',
+    addressLocality: 'Comas',
+    addressRegion: 'Lima',
+    addressCountry: 'PE',
+  },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '09:00', closes: '22:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: 'Sunday', opens: '10:00', closes: '22:00' },
+  ],
+  sameAs: [NEGOCIO.redes.instagram, NEGOCIO.redes.facebook],
+};
+---
+<!doctype html>
+<html lang="es-PE">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site ?? Astro.url).href} />
+    <meta name="theme-color" content="#F6EFE6" />
+    <meta name="color-scheme" content="light" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_PE" />
+    <meta property="og:title" content="La Pannacotta · Pastelería boutique" />
+    <meta property="og:description" content="Postres artesanales en Comas. Pide por WhatsApp." />
+    <meta property="og:image" content={ogImage} />
+    <link rel="icon" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,61 @@
+---
+import { Image } from 'astro:assets';
+import torta from '../assets/img/torta-frutos-rojos.jpg';
+import novios from '../assets/img/boda-novios.jpg';
+import { PRODUCTOS } from '../data/productos';
+import WaIcon from './WaIcon.astro';
+
+const sabores = PRODUCTOS.filter((p) => p.cat === 'porciones').map((p) => p.nombre);
+---
+<section class="encargos" id="encargos" aria-labelledby="enc-title">
+  <div class="container">
+    <div class="encargos-card">
+      <div class="enc-media">
+        <Image src={torta} alt="Torta de frutos rojos para el matrimonio de Lizbeth y Carlos" widths={[480, 760]} sizes="(max-width: 900px) 90vw, 420px" class="enc-main" />
+        <Image src={novios} alt="Lizbeth y Carlos junto a su torta de La Pannacotta" widths={[260, 400]} sizes="180px" class="enc-small" />
+      </div>
+
+      <div class="enc-body">
+        <p class="eyebrow light">Postres enteros por encargo</p>
+        <h2 id="enc-title" class="display-light">Tortas para tus <em>celebraciones</em></h2>
+        <p>
+          Cumpleaños, reuniones, aniversarios y hasta matrimonios. Hace poco fuimos parte de la boda de Lizbeth y Carlos 💍,
+          y nos encantaría endulzar tu próxima fecha especial. Cuéntanos qué necesitas y te enviamos tu cotización.
+        </p>
+
+        <form class="enc-form" data-encargo-form>
+          <label>
+            <span>Ocasión</span>
+            <select name="ocasion">
+              <option>Cumpleaños</option>
+              <option>Matrimonio</option>
+              <option>Aniversario</option>
+              <option>Reunión o evento</option>
+              <option>Otro</option>
+            </select>
+          </label>
+          <label>
+            <span>Sabor que te provoca</span>
+            <select name="sabor">
+              <option value="">Aún no sé, recomiéndenme</option>
+              {sabores.map((s) => <option>{s}</option>)}
+            </select>
+          </label>
+          <label>
+            <span>Fecha</span>
+            <input type="date" name="fecha" />
+          </label>
+          <label>
+            <span>N.º de personas</span>
+            <input type="number" name="personas" min="1" inputmode="numeric" placeholder="Ej.: 15" />
+          </label>
+          <label class="full">
+            <span>Detalles (opcional)</span>
+            <textarea name="detalles" rows="2" placeholder="Mensaje en la torta, decoración, alergias…"></textarea>
+          </label>
+          <button type="submit" class="btn btn-cream full"><WaIcon /> Cotizar mi torta por WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

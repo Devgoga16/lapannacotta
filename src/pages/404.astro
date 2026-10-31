@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { waLink, MSG_HOLA } from '../data/negocio';
+---
+<Layout title="Página no encontrada · La Pannacotta">
+  <main class="notfound">
+    <img src="/img/monograma.png" alt="" width="62" height="81" />
+    <p class="eyebrow">Error 404</p>
+    <h1 class="h2">Esta página se <em>la comieron</em></h1>
+    <p class="lead">Lo que buscas ya no está aquí, pero la vitrina sigue llena.</p>
+    <div class="btn-row">
+      <a class="btn btn-gold" href="/">Volver al inicio</a>
+      <a class="btn btn-outline" href={waLink(MSG_HOLA)} target="_blank" rel="noopener">Escríbenos</a>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .notfound {
+    min-height: 100svh; display: grid; place-content: center; justify-items: center;
+    gap: 14px; text-align: center; padding: 32px 16px;
+  }
+  .notfound .lead { margin: 0 0 12px; }
+  .notfound .btn-row { justify-content: center; }
+</style>

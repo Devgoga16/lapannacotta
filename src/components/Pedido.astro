@@ -1,0 +1,47 @@
+---
+import WaIcon from './WaIcon.astro';
+---
+<div class="drawer-scrim" data-close-cart hidden></div>
+<aside id="pedido" class="drawer" role="dialog" aria-modal="true" aria-labelledby="pedido-title" aria-hidden="true" tabindex="-1">
+  <div class="drawer-head">
+    <h2 id="pedido-title" class="h3">Tu pedido</h2>
+    <button type="button" class="round-btn" data-close-cart aria-label="Cerrar">✕</button>
+  </div>
+
+  <div class="drawer-empty" data-cart-empty>
+    <img src="/img/monograma.png" alt="" width="40" height="52" />
+    <p>Aún no agregas postres.</p>
+    <button type="button" class="btn btn-gold btn-sm" data-close-cart data-goto="#carta">Ver la carta</button>
+  </div>
+
+  <ul class="cart-list" data-cart-list></ul>
+  <p class="cart-total" data-cart-total hidden></p>
+
+  <form class="order-form" data-order-form hidden>
+    <label>
+      <span>Tu nombre</span>
+      <input name="nombre" autocomplete="given-name" placeholder="¿Cómo te llamas?" />
+    </label>
+    <fieldset class="entrega">
+      <legend>Entrega</legend>
+      <label class="radio"><input type="radio" name="entrega" value="Recojo en tienda" checked /> Recojo en tienda</label>
+      <label class="radio"><input type="radio" name="entrega" value="Delivery" /> Delivery</label>
+    </fieldset>
+    <label data-direccion hidden>
+      <span>Dirección de entrega</span>
+      <input name="direccion" autocomplete="street-address" placeholder="Calle, número y referencia" />
+    </label>
+    <label>
+      <span>¿Para cuándo? (opcional)</span>
+      <input name="cuando" placeholder="Ej.: hoy 5 p. m., sábado en la mañana" />
+    </label>
+    <label>
+      <span>Notas (opcional)</span>
+      <textarea name="notas" rows="2" placeholder="Ej.: es para regalo"></textarea>
+    </label>
+    <button type="submit" class="btn btn-gold full"><WaIcon /> Enviar pedido por WhatsApp</button>
+    <p class="fine">Te respondemos para confirmar disponibilidad, precio y entrega.</p>
+  </form>
+</aside>
+
+<div class="toast" data-toast role="status" aria-live="polite"></div>

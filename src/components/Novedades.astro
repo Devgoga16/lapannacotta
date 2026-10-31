@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import { CAMPANAS } from '../data/campanas';
+import { waLink, NEGOCIO } from '../data/negocio';
+---
+<section class="section novedades" id="novedades" aria-labelledby="nov-title" data-campanas>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Novedades y temporada</p>
+      <h2 id="nov-title" class="h2">Lo que se viene en <em>La Pannacotta</em></h2>
+    </div>
+
+    <div class="campanas">
+      {CAMPANAS.map((c) => (
+        <article class="campana" data-desde={c.desde} data-hasta={c.hasta}>
+          <div class="campana-img">
+            <Image src={c.img} alt={c.titulo} widths={[360, 520]} sizes="(max-width: 800px) 100vw, 260px" />
+          </div>
+          <div class="campana-body">
+            <p class="campana-kicker">{c.kicker}</p>
+            <h3 class="h3">{c.titulo}</h3>
+            <p>{c.texto}</p>
+            <p class="campana-fechas">{c.fechas}</p>
+            <a class="btn btn-outline btn-sm" href={waLink(c.mensaje)} target="_blank" rel="noopener">{c.cta}</a>
+          </div>
+        </article>
+      ))}
+      <article class="campana campana-vacia" data-campana-vacia hidden>
+        <img src="/img/monograma.png" alt="" width="46" height="60" />
+        <div>
+          <h3 class="h3">Muy pronto, nuevas sorpresas</h3>
+          <p>Postres de temporada, campañas y eventos en el local. Síguenos para enterarte primero.</p>
+          <a class="btn btn-outline btn-sm" href={NEGOCIO.redes.instagram} target="_blank" rel="noopener">Seguir en Instagram</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

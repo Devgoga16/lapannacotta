@@ -1,0 +1,44 @@
+---
+import { Image } from 'astro:assets';
+import cheesecakeFresa from '../assets/img/cut/cheesecake-fresa.png';
+import tortaChocolate from '../assets/img/cut/torta-chocolate.png';
+import pieLimon from '../assets/img/cut/pie-limon.png';
+import banoffee from '../assets/img/cut/banoffee.png';
+import arandanos from '../assets/img/cut/cheesecake-arandanos.png';
+import tartaleta from '../assets/img/cut/tartaleta-crema.png';
+
+// Postres flotando alrededor del nombre: "front" va delante de las letras, "blur" detrás y desenfocado
+const flotantes = [
+  { img: tortaChocolate, cls: 'f-choco', depth: 0.6, layer: 'back blur' },
+  { img: arandanos, cls: 'f-arandanos', depth: 0.4, layer: 'back blur' },
+  { img: tartaleta, cls: 'f-tartaleta', depth: 0.8, layer: 'back blur' },
+  { img: banoffee, cls: 'f-banoffee', depth: 1.1, layer: 'front' },
+  { img: cheesecakeFresa, cls: 'f-fresa', depth: 1.4, layer: 'front' },
+  { img: pieLimon, cls: 'f-limon', depth: 0.9, layer: 'back' },
+];
+---
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero-stage" data-parallax>
+    {flotantes.filter((f) => f.layer.startsWith('back')).map((f) => (
+      <div class={`float ${f.cls} ${f.layer}`} data-depth={f.depth} aria-hidden="true">
+        <Image src={f.img} alt="" widths={[280, 480]} sizes="(max-width: 700px) 40vw, 24vw" loading="eager" />
+      </div>
+    ))}
+    <h1 id="hero-title" class="wordmark">
+      <span class="wm-la">La</span> <span class="wm-name">Pannacotta</span>
+      <span class="sr-only">, pastelería boutique en Comas</span>
+    </h1>
+    <p class="hero-tag" aria-hidden="true"><span></span>Pastelería boutique<span></span></p>
+    {flotantes.filter((f) => f.layer === 'front').map((f) => (
+      <div class={`float ${f.cls} ${f.layer}`} data-depth={f.depth} aria-hidden="true">
+        <Image src={f.img} alt="" widths={[320, 560]} sizes="(max-width: 700px) 46vw, 26vw" loading="eager" />
+      </div>
+    ))}
+  </div>
+
+  <div class="container hero-foot">
+    <p class="hero-copy">Pastelería artesanal en Lima Norte. <br />Cheesecakes, tortas y postres hechos a mano para tu antojo de hoy.</p>
+    <a class="btn btn-gold" href="#carta">Ver la carta</a>
+    <p class="hero-copy right">Un espacio cálido y tranquilo en Comas<br />para trabajar, conversar o regalarte un gustito.</p>
+  </div>
+</section>

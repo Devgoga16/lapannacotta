@@ -1,0 +1,33 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Novedades from '../components/Novedades.astro';
+import Historia from '../components/Historia.astro';
+import Favoritos from '../components/Favoritos.astro';
+import Carta from '../components/Carta.astro';
+import Encargos from '../components/Encargos.astro';
+import ComoPedir from '../components/ComoPedir.astro';
+import Visitanos from '../components/Visitanos.astro';
+import Footer from '../components/Footer.astro';
+import Pedido from '../components/Pedido.astro';
+---
+<Layout>
+  <a class="skip" href="#carta">Ir a la carta</a>
+  <Header />
+  <main>
+    <Hero />
+    <Novedades />
+    <Historia />
+    <Favoritos />
+    <Carta />
+    <Encargos />
+    <ComoPedir />
+    <Visitanos />
+  </main>
+  <Footer />
+  <Pedido />
+  <script>
+    import '../scripts/app';
+  </script>
+</Layout>

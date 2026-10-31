@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import { PRODUCTOS, CATEGORIAS, fmtPrecio } from '../data/productos';
+import { NEGOCIO } from '../data/negocio';
+---
+<section class="section carta" id="carta" aria-labelledby="carta-title">
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow">La carta</p>
+      <h2 id="carta-title" class="h2">Elige, agrega y <em>pide por WhatsApp</em></h2>
+      <p class="lead">Arma tu pedido aquí y te lo enviamos listo a nuestro WhatsApp. Te confirmamos disponibilidad, precio y entrega.</p>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Categorías de la carta">
+      {CATEGORIAS.map((c, i) => (
+        <button type="button" role="tab" class="chip" id={`tab-${c.id}`} aria-controls={`panel-${c.id}`}
+          aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tab={c.id}>
+          {c.label}
+        </button>
+      ))}
+    </div>
+
+    {CATEGORIAS.map((c, i) => (
+      <div class="menu-panel" role="tabpanel" id={`panel-${c.id}`} aria-labelledby={`tab-${c.id}`} hidden={i !== 0}>
+        <ul class:list={['menu-list', { 'sin-precios': !NEGOCIO.mostrarPrecios }]}>
+          {PRODUCTOS.filter((p) => p.cat === c.id).map((p) => (
+            <li class="menu-item" data-product={p.id} data-nombre={p.nombre}
+              data-precio={NEGOCIO.mostrarPrecios && p.precio ? String(p.precio) : ''}>
+              <div class="mi-thumb">
+                {p.img
+                  ? <Image src={p.img} alt="" widths={[120]} sizes="60px" class:list={{ recorte: p.recorte }} />
+                  : <img src="/img/monograma.png" alt="" width="22" height="29" class="mi-mono" />}
+              </div>
+              <div class="mi-text">
+                <h3 class="mi-name">{p.nombre}{p.badge && <span class="mi-badge">{p.badge}</span>}</h3>
+                {p.desc && <p class="mi-desc">{p.desc}</p>}
+              </div>
+              {NEGOCIO.mostrarPrecios && <span class="mi-dots" aria-hidden="true"></span>}
+              {NEGOCIO.mostrarPrecios && <span class="mi-price">{p.precio ? fmtPrecio(p.precio) : 'Consultar'}</span>}
+              <button type="button" class="add-btn" data-add={p.id} aria-label={`Agregar ${p.nombre} al pedido`}>+</button>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+
+    <p class="carta-note">
+      ¿Buscas algo que no está en la lista? Escríbenos y te contamos qué hay hoy en la vitrina.
+    </p>
+  </div>
+</section>

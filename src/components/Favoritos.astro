@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import { PRODUCTOS, fmtPrecio } from '../data/productos';
+import { NEGOCIO } from '../data/negocio';
+
+const favoritos = PRODUCTOS.filter((p) => p.destacado && p.img);
+---
+<section class="section favoritos" id="favoritos" aria-labelledby="fav-title">
+  <div class="container">
+    <div class="section-head row">
+      <div>
+        <p class="eyebrow">Favoritos de la vitrina</p>
+        <h2 id="fav-title" class="h2">Nuestros postres <em>estrella</em></h2>
+      </div>
+      <div class="slider-ctrl">
+        <button type="button" class="round-btn" data-slide="-1" aria-label="Anteriores">←</button>
+        <button type="button" class="round-btn" data-slide="1" aria-label="Siguientes">→</button>
+        <a class="btn btn-gold btn-sm hide-mobile" href="#carta">Ver toda la carta</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="fav-track" data-track tabindex="0" aria-label="Postres favoritos, desliza para ver más">
+    {favoritos.map((p) => (
+      <article
+        class="fav-card"
+        data-product={p.id}
+        data-nombre={p.nombre}
+        data-precio={NEGOCIO.mostrarPrecios && p.precio ? String(p.precio) : ''}
+      >
+        <div class:list={['fav-img', { recorte: p.recorte }]}>
+          <Image src={p.img!} alt={p.nombre} widths={[320, 560]} sizes="(max-width: 700px) 78vw, 320px" />
+          {NEGOCIO.mostrarPrecios && p.precio && (
+            <span class="price-tag"><small>S/</small>{p.precio % 1 ? p.precio.toFixed(2) : p.precio}</span>
+          )}
+          {p.badge && <span class="badge">{p.badge}</span>}
+        </div>
+        <h3 class="h4">{p.nombre}</h3>
+        {p.desc && <p class="fav-desc">{p.desc}</p>}
+        {NEGOCIO.mostrarPrecios && p.precio && <p class="sr-only">{fmtPrecio(p.precio)}</p>}
+        <button type="button" class="btn btn-gold btn-sm" data-add={p.id}>Agregar al pedido</button>
+      </article>
+    ))}
+  </div>
+</section>
